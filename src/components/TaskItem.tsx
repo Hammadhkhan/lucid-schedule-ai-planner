@@ -4,7 +4,7 @@ import { Task } from '@/types';
 import { formatTime } from '@/utils/date-utils';
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
-import { Edit, Trash2, Clock, CalendarClock } from "lucide-react";
+import { Edit, Trash2, Clock, CalendarClock, GripVertical } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import TaskModal from './TaskModal';
 
@@ -41,8 +41,12 @@ const TaskItem = ({ task, onComplete, onDelete, onUpdate }: TaskItemProps) => {
   
   return (
     <>
-      <div className={`task-category-${task.category} p-4 mb-3 bg-card rounded-lg shadow-sm hover:shadow-md transition-shadow animate-fade-in`}>
+      <div className={`task-category-${task.category} p-4 mb-3 bg-card rounded-lg shadow-sm hover:shadow-md transition-shadow animate-fade-in group`}>
         <div className="flex items-start gap-3">
+          <div className="text-muted-foreground opacity-50 group-hover:opacity-100 transition-opacity mt-1 cursor-grab">
+            <GripVertical className="h-5 w-5" />
+          </div>
+          
           <Checkbox 
             checked={task.completed} 
             onCheckedChange={handleComplete}

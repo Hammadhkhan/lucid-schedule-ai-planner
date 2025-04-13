@@ -89,6 +89,24 @@ const Dashboard = () => {
     setSelectedCategory(category);
   };
   
+  const handleReorderTasks = (reorderedTasks: Task[]) => {
+    // Update only the ordering of tasks in the current category view
+    if (selectedCategory) {
+      const otherTasks = tasks.filter(task => task.category !== selectedCategory);
+      const updatedTasks = [...otherTasks, ...reorderedTasks];
+      setTasks(updatedTasks);
+      saveTasks(updatedTasks);
+    } else {
+      setTasks(reorderedTasks);
+      saveTasks(reorderedTasks);
+    }
+    
+    toast({
+      title: "Tasks reordered",
+      description: "Your tasks have been rearranged",
+    });
+  };
+  
   return (
     <div className="container py-8 max-w-screen-xl">
       <DashboardHeader onAddTask={() => setIsAddTaskModalOpen(true)} />
@@ -118,6 +136,7 @@ const Dashboard = () => {
               onComplete={handleCompleteTask}
               onDelete={handleDeleteTask}
               onUpdate={handleUpdateTask}
+              onReorder={handleReorderTasks}
             />
           </div>
         </div>
